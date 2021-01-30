@@ -41,7 +41,7 @@
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                    <input class="inp-style" type="date" name="">
+                        <input class="inp-style" type="date" name="">
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
@@ -51,20 +51,22 @@
             <div class="input-group f-class">
                 <div>
                     <label for="">First Class ($150)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="first-class" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <p>+ -</p>
+                    <button onclick=" handleClassChange('first',true);" class="plus-minus-button">+</button>
+                    <button onclick=" handleClassChange('first',false);" class="plus-minus-button">-</button>
                 </div>
             </div>
-            
+
             <div class="input-group f-class">
                 <div>
                     <label for="">Economy ($100)</label>
-                    <input class="inp-style inp-width" type="number" name="">
+                    <input id="economy-class" class="inp-style inp-width" type="number" name="" value="0">
                 </div>
                 <div class="plus-minus-btn">
-                    <p> <span>+</span> <span>-</span> </p>
+                    <button onclick=" handleClassChange('economy',true);"" class=" plus-minus-button">+</button>
+                    <button onclick=" handleClassChange('economy',false);" class="plus-minus-button">-</button>
                 </div>
             </div>
             <div class="calculations">
@@ -73,7 +75,7 @@
                         <p>Subtotal</p>
                     </div>
                     <div class="right">
-                        <p>$500</p>
+                        <p>$ <span id="sub-total">0</span></p>
                     </div>
                 </div>
 
@@ -82,7 +84,7 @@
                         <p>Charge 10% VAT</p>
                     </div>
                     <div class="right">
-                        <p>$50</p>
+                        <p>$ <span id="tax">0</span></p>
                     </div>
                 </div>
                 <hr>
@@ -91,7 +93,7 @@
                         <h4>Total</h4>
                     </div>
                     <div class="right">
-                        <p>$550</p>
+                        <p>$ <span id="grand-total">0</span></p>
                     </div>
                 </div>
             </div>
@@ -100,11 +102,66 @@
 
         <div class="booking-content">
             <h1>discover <br> around the world</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias
+                veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise
+                voluptatibus quam</p>
         </div>
-    </section>
+        </section>
 
-    <!--Thank You-->
+        <!--Thank You-->
+
+        <script>
+            // Handle Class Change
+
+            function handleClassChange(flight, isIncrease) {
+                const flightsQuantityNumber = getInputValue(flight);
+                let newFlightsQuantity = flightsQuantityNumber;
+                if (isIncrease == true) {
+                    newFlightsQuantity = flightsQuantityNumber + 1;
+                }
+                if (isIncrease == false && flightsQuantityNumber > 0) {
+                    newFlightsQuantity = flightsQuantityNumber - 1;
+                }
+                document.getElementById(flight + '-class').value = newFlightsQuantity;
+
+                let firstClassFlightCost = 0;
+                if (flight == 'first') {
+                    firstClassFlightCost = newFlightsQuantity * 150;
+                }
+                let economyClassFlightsCost = 0;
+                if (flight == 'economy') {
+                    economyClassFlightsCost = newFlightsQuantity * 100;
+                }
+
+                calculateTotalCost();
+            }
+
+            // Calculate Total Cost
+            function calculateTotalCost() {
+                const firstClassFlightQuantity = getInputValue('first');
+                const economyClassFlightQuantity = getInputValue('economy');
+
+                const subTotalFlightCost = firstClassFlightQuantity * 150 + economyClassFlightQuantity * 100;
+                document.getElementById('sub-total').innerText = subTotalFlightCost;
+
+                const tax = subTotalFlightCost * 0.1;
+                document.getElementById('tax').innerText = tax;
+
+                const grandTotal = subTotalFlightCost + tax;
+                document.getElementById('grand-total').innerText = grandTotal;
+
+            }
+
+            //Get Input Value
+            function getInputValue(flightClass) {
+                const flightsQuantity = document.getElementById(flightClass + '-class').value;
+                const flightsQuantityNumber = parseInt(flightsQuantity);
+                return flightsQuantityNumber;
+            }
+
+
+
+        </script>
 </body>
 
 </html>
