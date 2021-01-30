@@ -120,3 +120,8 @@ nav ul li a:hover, a.active{
     display: flex;
     justify-content: space-between;
 }
+
+#submit-msg{
+    margin-bottom: 10px;
+    color: green;
+}

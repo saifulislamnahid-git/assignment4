@@ -97,7 +97,10 @@
                     </div>
                 </div>
             </div>
-            <button class="btn-style">Book Now</button>
+            <div id="submit-msg">
+
+            </div>
+            <button onclick="submitMassage()" class="btn-style">Book Now</button>
         </div>
 
         <div class="booking-content">
@@ -108,11 +111,11 @@
         </div>
         </section>
 
-        <!--Thank You-->
+        <!--Thank You--> 
 
         <script>
-            // Handle Class Change
 
+            // Handle Class Change
             function handleClassChange(flight, isIncrease) {
                 const flightsQuantityNumber = getInputValue(flight);
                 let newFlightsQuantity = flightsQuantityNumber;
@@ -157,6 +160,34 @@
                 const flightsQuantity = document.getElementById(flightClass + '-class').value;
                 const flightsQuantityNumber = parseInt(flightsQuantity);
                 return flightsQuantityNumber;
+            }
+
+
+
+            // Submit Form handler
+            function submitMassage() {
+                const firstClassQuantityMassage = getInputValue('first');
+                const economyClassQuantityMassage = getInputValue('economy');
+                const subTotalMassage = document.getElementById('sub-total').innerText;
+                const taxMassage = document.getElementById('tax').innerText;
+                const grandTotalMassage = document.getElementById('grand-total').innerText;
+                const submitMassage = document.getElementById('submit-msg');
+
+                if (firstClassQuantityMassage == 0 && economyClassQuantityMassage == 0) {
+                    const mainMassage = "Input your flight";
+                    submitMassage.innerText = mainMassage;
+                } else {
+                    if (firstClassQuantityMassage > 0 && economyClassQuantityMassage > 0) {
+                        const mainMassage = 'You have successfully placed an order for : ' + firstClassQuantityMassage + ' First Class Flight and ' + economyClassQuantityMassage + ' Economy Class Flight. Your Subtotal cost is : $ ' + subTotalMassage + ', Tax : $ ' + taxMassage + ', Total Cost is : $ ' + grandTotalMassage + ' . Happy travel. Thank you';
+                        submitMassage.innerText = mainMassage;
+                    } else if (firstClassQuantityMassage > 0) {
+                        const mainMassage = 'You have successfully placed an order for : ' + firstClassQuantityMassage + ' First Class Flight . Your Subtotal cost is : $ ' + subTotalMassage + ', Tax : $ ' + taxMassage + ', Total Cost is : $ ' + grandTotalMassage + ' . Happy travel. Thank you';
+                        submitMassage.innerText = mainMassage;
+                    } else {
+                        const mainMassage = 'You have successfully placed an order for : ' + economyClassQuantityMassage + ' Economy Flight . Your Subtotal cost is : $ ' + subTotalMassage + ', Tax : $ ' + taxMassage + ', Total Cost is : $ ' + grandTotalMassage + ' . Happy travel. Thank you';
+                        submitMassage.innerText = mainMassage;
+                    }
+                }
             }
 
 
